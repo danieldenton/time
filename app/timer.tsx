@@ -1,10 +1,14 @@
 import { StyleSheet } from "react-native";
+import { Link } from "expo-router";
 import { View, Text } from "@/components/Themed";
 
 export default function Timer() {
   return (
     <View style={styles.container}>
-      <Text>Timer</Text>
+      <Text style={styles.title}>Timer</Text>
+      <Link style={styles.link} href="/">
+        home
+      </Link>
     </View>
   );
 }
@@ -21,5 +25,8 @@ const styles = StyleSheet.create({
   },
   link: {
     color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+    marginTop: 10,
   },
 });
