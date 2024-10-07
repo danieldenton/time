@@ -6,7 +6,7 @@ export default function Home() {
   const [apiResponse, setApiResponse] = useState<any | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async () =>{
     try {
       setLoading(true);
       // const response = await fetch('');
