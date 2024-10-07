@@ -1,6 +1,5 @@
 import { View, TextInput, Button, Text, StyleSheet } from "react-native";
 import { useState } from "react";
-import axios from "axios";
 
 export default function Home() {
   const [formData, setFormData] = useState({ name: '', email: '' });
@@ -10,8 +9,11 @@ export default function Home() {
   const handleSubmit = async () => {
     try {
       setLoading(true);
+      // const response = await fetch('');
+      // const data = await response.json();
       await new Promise((resolve) => setTimeout(resolve, 1000)); 
-      setApiResponse({ message: 'User was successfully created' });
+      const resp = { message: 'User was successfully created' };
+      setApiResponse(resp.message);
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -20,7 +22,7 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Mock API Form Submission</Text>
+      <Text style={styles.title}>Mock</Text>
       <TextInput
         style={styles.input}
         placeholder="Name"
@@ -38,7 +40,7 @@ export default function Home() {
       {apiResponse && (
         <View style={styles.responseContainer}>
           <Text>Response:</Text>
-          <Text>{JSON.stringify(apiResponse)}</Text>
+          <Text>{apiResponse}</Text>
         </View>
       )}
     </View>
@@ -52,6 +54,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
+    textAlign: 'center',
     fontSize: 24,
     marginBottom: 20,
   },
