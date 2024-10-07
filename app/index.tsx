@@ -1,30 +1,68 @@
-import { StyleSheet } from 'react-native';
-import { Text, View } from '@/components/Themed';
-import { Link } from 'expo-router';
+import { View, TextInput, Button, Text, StyleSheet } from "react-native";
+import { useState } from "react";
+import axios from "axios";
 
 export default function Home() {
+  const [formData, setFormData] = useState({ name: '', email: '' });
+  const [apiResponse, setApiResponse] = useState<any | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/todos/1"
+      );
+      const data = response.data;
+      setApiResponse(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Hey bud</Text>
-      <Link style={styles.link} href="/timer">Timer</Link>
+      <Text style={styles.title}>Mock API Form Submission</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Name"
+        value={formData.name}
+        onChangeText={(text) => setFormData({ ...formData, name: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={formData.email}
+        onChangeText={(text) => setFormData({ ...formData, email: text })}
+      />
+      <Button title="Submit" onPress={handleSubmit} />
+      {loading && <Text>Loading...</Text>}
+      {apiResponse && (
+        <View style={styles.responseContainer}>
+          <Text>Response:</Text>
+          <Text>{JSON.stringify(apiResponse)}</Text>
+        </View>
+      )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    padding: 20,
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 24,
+    marginBottom: 20,
   },
-  link: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "bold",
-    marginTop: 10,
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    marginVertical: 10,
+  },
+  responseContainer: {
+    marginTop: 20,
   },
 });
