@@ -9,11 +9,10 @@ export default function Home() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/todos/1"
-      );
-      const data = response.data;
-      setApiResponse(data);
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 1000)); 
+      setApiResponse({ message: 'User was successfully created' });
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
